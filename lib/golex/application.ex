@@ -10,6 +10,7 @@ defmodule Golex.Application do
     children = [
       # Starts a worker by calling: Golex.Worker.start_link(arg)
       # {Golex.Worker, arg}
+      {Task.Supervisor, name: Golex.TaskSupervisor}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
