@@ -7,10 +7,13 @@ defmodule Golex.Application do
 
   @impl true
   def start(_type, _args) do
+    init_alive_cells = []
+
     children = [
       # Starts a worker by calling: Golex.Worker.start_link(arg)
       # {Golex.Worker, arg}
-      {Task.Supervisor, name: Golex.TaskSupervisor}
+      {Task.Supervisor, name: Golex.TaskSupervisor},
+      {Golex.BoardServer, init_alive_cells}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
