@@ -5,10 +5,13 @@
 
 ### [`Conway`](https://en.wikipedia.org/wiki/John_Horton_Conway)'s [`Game of Life`](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in [`Elixir`](https://elixir-lang.org/). Distributed Game of Life with Board Server API. Run it on multiple nodes.
 
+#### Another (fun 😀) way to learn OTP in Elixir
+
 <br />
 
-> 🚧 This is a work in progress and therefore you should expect that the
-> application may not have all the features at this moment.
+<img src="game_of_life-pulsar_oscillator.gif" width="70%">
+
+<p>Pulsar: a period 3 oscillator</p>
 
 <br />
   

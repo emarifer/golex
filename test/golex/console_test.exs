@@ -16,9 +16,9 @@ defmodule Golex.ConsoleTest do
       end)
 
     assert result ==
-             "    2| O,,\n" <>
-               "    1| ,O,\n" <>
-               "    0| OOO\n" <>
+             "    2| ◻️◼️◼️\n" <>
+               "    1| ◼️◻️◼️\n" <>
+               "    0| ◻️◻️◻️\n" <>
                "     | _ _ \n" <>
                "    /  0    \n" <>
                "Generation: 123\n" <>

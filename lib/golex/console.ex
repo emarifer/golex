@@ -39,7 +39,7 @@ defmodule Golex.Console do
       end
 
       # Draw the living or dead cells.
-      IO.write(if Enum.member?(cells, {x, y}), do: "O", else: ",")
+      IO.write(if Enum.member?(cells, {x, y}), do: "◻️", else: "◼️")
       if x == end_x, do: IO.puts("")
     end
 
