@@ -13,7 +13,8 @@ defmodule Golex.Application do
       # Starts a worker by calling: Golex.Worker.start_link(arg)
       # {Golex.Worker, arg}
       {Task.Supervisor, name: Golex.TaskSupervisor},
-      {Golex.BoardServer, init_alive_cells}
+      {Golex.BoardServer, init_alive_cells},
+      {Golex.GamePrinter, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -155,6 +155,7 @@ defmodule Golex.BoardServer do
         {alive_cells, nil = _tref, generation_counter}
       ) do
     {:ok, tref} = :timer.apply_interval(speed, __MODULE__, :tick, [])
+    # ↑↑↑ See footnote ↑↑↑
 
     {:reply, :game_started, {alive_cells, tref, generation_counter}}
   end
@@ -184,6 +185,7 @@ defmodule Golex.BoardServer do
         {alive_cells, tref, generation_counter}
       ) do
     {:ok, :cancel} = :timer.cancel(tref)
+    # ↑↑↑ See footnote ↑↑↑
 
     {:reply, :game_stoped, {alive_cells, nil, generation_counter}}
   end
@@ -214,3 +216,17 @@ defmodule Golex.BoardServer do
     {:noreply, {alive_cells, tref, generation_counter + 1}}
   end
 end
+
+# REFERENCES:
+# Different ways to register the GenServer name
+# and call it from different nodes in Elixir:
+# https://itnext.io/different-ways-to-register-genserver-name-in-elixir-e2708b84eed8
+
+# FOOTNOTE:
+# https://www.erlang.org/doc/apps/stdlib/timer.html#apply_interval/4
+# https://www.erlang.org/doc/apps/stdlib/timer.html#cancel/1
+#
+# `apply_interval/4` is a function similar to JavaScript's `setInterval`:
+# it executes a callback with the given interval.
+# Given a reference (`TRef`), we can cancel its execution.
+# It's similar to `clearInterval` in JavaScript.
