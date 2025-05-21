@@ -1,8 +1,5 @@
-defmodule GolexTest do
+defmodule Golex.BoardServerTest do
   use ExUnit.Case
-  doctest Golex
 
-  test "greets the world" do
-    assert Golex.hello() == :world
-  end
+  doctest Golex.BoardServer
 end
