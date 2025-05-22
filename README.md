@@ -25,13 +25,15 @@
 
 Looking for projects to learn Elixir and with the idea of ​​making my own `Game of Life` I came across many repositories.
 
-One of the simplest implementations (due to its short length) is the elegant implementation by ***Saša Jurić*** (you can read this blog [post](https://www.theerlangelist.com/article/conway) and see the code [here](https://gist.github.com/sasa1977/6877c52c3c35c2c03c82)).
-
 One of the simplest (due to its short length) yet elegant implementations is ***Saša Jurić***'s implementation (you can read this blog [post](https://www.theerlangelist.com/article/conway) and see the code [here](https://gist.github.com/sasa1977/6877c52c3c35c2c03c82)).
 
-The code you can see here is more basic but includes an ***OTP*** implementation for educational purposes.
+The code you can see here is more "basic" but includes an ***OTP*** implementation for educational purposes.
 
-In reality, the use of concurrency and distribution isn't necessary in this case, since applying the rules of the Game of Life and the size of the board (which doesn't include an excessive number of cells) doesn't incur a high computational cost. However, given the ease with which Elixir creates concurrent applications, I've chosen to implement it this way.
+However, given the ease with which Elixir allows you to create concurrent and/or distributed applications, I have chosen to implement it this way, considering, as I just mentioned, for learning purposes.
+
+However, a warning must be issued. In real-life programming, the ease with which Elixir and other BEAM-based languages ​​provide us with concurrent programming can lead to *premature optimizations* that almost always lead to a loss of application performance when *bottlenecks* occur. Using Elixir (or Erlang) does not prevent these problems from arising. For example, a process's message inbox having a long queue waiting to handle incoming messages, a single `DynamicSupervisor`/`Task.Supervisor` having to manage the initialization of a large volume of processes/tasks, or these, for whatever reason, taking a long time to initialize, can end up causing a bottleneck with the consequent decrease in performance. While this is possible, Elixir/Erlang provide us (unlike most other languages) with powerful tools (e.g. [`Observer`](https://hexdocs.pm/elixir/debugging.html#observer)) for detecting and pinpointing the problem. Once we've located the problem, we'd then have to refactor our code. In any case, this refactoring phase would only come after using *benchmarking* tools to demonstrate that we actually have a problem.
+
+But back to our application, here's a diagram of how we organized the processes we launched to make it work the way we wanted:
 
 <div align="center">
     <img src="supervision_tree_scheme.svg" width="70%">
@@ -99,7 +101,7 @@ We see that our second node has connected to the first, which now becomes the ma
 >[!NOTE]
 >***To call other Elixir/Erlang nodes use an atom created from the @-separated short name of your machine name.***
 
-We'll also see that on `node1` (now the main node), an error occurred when the same server [`PID`](https://github.com/emarifer/golex/blob/main/lib/golex/board_server.ex#L57) conflicted on both nodes. But the magic of Elixir/Erlang `fault tolerance`, thanks to the use of a `Supervisor`, restarts the process immediately:
+We'll also see that on `node1` (now the main node), an error occurred when the same server [`PID`](https://github.com/emarifer/golex/blob/main/lib/golex.ex#L57) conflicted on both nodes. But the magic of Elixir/Erlang `fault tolerance`, thanks to the use of a `Supervisor`, restarts the process immediately:
 
 ```
 #=> 10:17:45.559 [info] global: Name conflict terminating {Golex.BoardServer, #PID<21771.145.0>}
@@ -123,6 +125,12 @@ Now we can handle what happens on node1 from node2 in the other terminal. We can
 
 ```
 iex(node2@your_computer_name)2> Oscillators.pulsar |> BoardServer.add_cells
+```
+
+Or even add a random pattern to the board automatically given an initial number of cells (although the number will be smaller because the function only returns unique positions):
+
+```
+iex(node2@your_computer_name)2> Random.random_pattern_generator(500) |> BoardServer.add_cells
 ```
 
 >[!NOTE]
@@ -167,7 +175,7 @@ Just for fun, you can try out the various patterns we provide in the `lib/golex/
 - [Task](https://hexdocs.pm/elixir/Task.html)
 - [Task.Supervisor](https://hexdocs.pm/elixir/Task.Supervisor.html)
 - [Using Supervisors to Organize Your Elixir Application](https://blog.appsignal.com/2021/08/23/using-supervisors-to-organize-your-elixir-application.html)
-
+- [Fix Process Bottlenecks with Elixir 1.14's Partition Supervisor](https://blog.appsignal.com/2022/09/20/fix-process-bottlenecks-with-elixir-1-14s-partition-supervisor.html)
 
 
 ---

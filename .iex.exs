@@ -5,6 +5,7 @@ alias Golex.Utilities.{
   Methuselahs,
   Oscillators,
   PatternConverter,
+  Random,
   Spaceships,
   StillLifes
 }
