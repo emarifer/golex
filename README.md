@@ -5,11 +5,11 @@
 
 ### [`Conway`](https://en.wikipedia.org/wiki/John_Horton_Conway)'s [`Game of Life`](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in [`Elixir`](https://elixir-lang.org/). Distributed Game of Life with Board Server API. Run it on multiple nodes.
 
-#### Another (fun 😀) way to learn OTP in Elixir
+#### Another way (😀) to learn OTP in Elixir
 
 <br />
 
-<img src="game_of_life-pulsar_oscillator.gif" width="70%">
+<img src="doc/game_of_life-pulsar_oscillator.gif" width="70%">
 
 <p><i>Pulsar</i>: a period 3 oscillator</p>
 
@@ -36,7 +36,7 @@ However, a warning must be issued. In real-life programming, the ease with which
 But back to our application, here's a diagram of how we organized the processes we launched to make it work the way we wanted:
 
 <div align="center">
-    <img src="supervision_tree_scheme.svg" width="70%">
+    <img src="doc/supervision_tree_scheme.svg" width="70%">
 </div>
 
 Briefly explained: the application supervisor starts 3 main processes: a `Task.Supervisor` or tasks dynamic supervisor, a `GenServer` for the `BoardServer` server and an `Agent` for `GamePrinter`.

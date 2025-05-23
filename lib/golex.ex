@@ -70,7 +70,7 @@ defmodule Golex.BoardServer do
   Clears board and adds only new cells.
   Generation counter is reset.
   """
-  def set_alive_cells(cells) do
+  def set_alive_cells(cells \\ []) do
     GenServer.call(@name, {:set_alive_cells, cells})
   end
 
